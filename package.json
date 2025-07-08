@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-"scripts": {
-  "clean:reports": "rimraf test-results reports",
-  "testonly": "cross-env-shell \"npx cucumber-js || exit 0\"",
-  "test": "npm run clean:reports && npm run testonly && npm run posttest",
-  "posttest": "npx ts-node src/helper/report.ts"
-},
+  "scripts": {
+    "clean:reports": "rimraf test-results reports",
+    "testonly": "cross-env-shell \"npx cucumber-js --require-module ts-node/register --require src/test/hooks/**/*.ts --require src/test/steps/**/*.ts --format json:reports/cucumber_report.json --format rerun:@rerun.txt || exit 0\"",
+    "test": "npm run clean:reports && npm run testonly && npm run posttest",
+    "test:failed": "npx cucumber-js @rerun.txt --require-module ts-node/register --require src/test/hooks/**/*.ts --require src/test/steps/**/*.ts --format json:reports/failed_report.json",
+    "posttest": "npx ts-node src/helper/report.ts",
+    "posttest:failed": "node -e \"const r=require('cucumber-html-reporter');r.generate({theme:'bootstrap',jsonFile:'reports/failed_report.json',output:'reports/failed_report.html',reportSuiteAsScenarios:true,metadata:{'Platform':'Local','Type':'Failed Scenarios'}})\""
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

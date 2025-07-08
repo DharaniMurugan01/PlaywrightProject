@@ -14,8 +14,6 @@ module.exports = {
       "html:reports/cucumber-report.html",
       "json:test-results/cucumber-report.json"
     ],
-    requireModule: ["ts-node/register"],
-
-    parallel: 2,
+    requireModule: ["ts-node/register"]
   }
 };

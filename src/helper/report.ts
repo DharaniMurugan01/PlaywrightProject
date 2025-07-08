@@ -14,7 +14,7 @@ report.generate({
       name: "chrome",
       version: "138.0.7204.97",
     },
-    device: "Local test machine",
+    device: "Dharani Local test machine",
     platform: {
       name: "windows",
       version: "11",
