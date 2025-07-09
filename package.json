@@ -4,12 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "clean:reports": "rimraf test-results reports",
-    "testonly": "cross-env-shell \"npx cucumber-js --require-module ts-node/register --require src/test/hooks/**/*.ts --require src/test/steps/**/*.ts --format json:reports/cucumber_report.json --format rerun:@rerun.txt || exit 0\"",
+    "clean:reports": "rimraf test-results reports rerun.txt",
+    "testonly": "cross-env-shell \"npx cucumber-js --profile default || exit 0\"",
     "test": "npm run clean:reports && npm run testonly && npm run posttest",
-    "test:failed": "npx cucumber-js @rerun.txt --require-module ts-node/register --require src/test/hooks/**/*.ts --require src/test/steps/**/*.ts --format json:reports/failed_report.json",
     "posttest": "npx ts-node src/helper/report.ts",
-    "posttest:failed": "node -e \"const r=require('cucumber-html-reporter');r.generate({theme:'bootstrap',jsonFile:'reports/failed_report.json',output:'reports/failed_report.html',reportSuiteAsScenarios:true,metadata:{'Platform':'Local','Type':'Failed Scenarios'}})\""
+    "rerun": "npx cucumber-js --profile rerun"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +18,7 @@
     "@playwright/test": "^1.53.2",
     "@types/node": "^20.11.30",
     "cross-env": "^7.0.3",
+    "dotenv": "^17.1.0",
     "multiple-cucumber-html-reporter": "^3.9.3",
     "rimraf": "^6.0.1",
     "ts-node": "^10.9.2",
