@@ -1,33 +1,18 @@
-const report = require("multiple-cucumber-html-reporter");
+import reporter from 'multiple-cucumber-html-reporter';
 
-const currentTime = new Date().toLocaleString("en-US", {
-  dateStyle: "medium",
-  timeStyle: "short",
-  timeZone: "Asia/Kolkata", 
-});
-
-report.generate({
-  jsonDir: "test-results",
-  reportPath: "./reports/html",
+reporter.generate({
+  jsonDir: 'reports/json',                // Your JSON report path (must match your test output)
+  reportPath: 'reports/html',             // Final report location (used in Jenkins)
+  reportName: 'Multiple Cucumber HTML Report',
   metadata: {
     browser: {
-      name: "chrome",
-      version: "138.0.7204.97",
+      name: 'chrome',
+      version: '114',
     },
-    device: "Dharani Local test machine",
+    device: 'Dharani Local test machine',
     platform: {
-      name: "windows",
-      version: "11",
+      name: 'windows',
+      version: '10',
     },
-  },
-  customData: {
-    title: "Run info",
-    data: [
-      { label: "Project", value: "book cart azure project" },
-      { label: "Release", value: "1.2.3" },
-      { label: "Cycle", value: "B11221.34321" },
-      { label: "Execution Start Time", value: currentTime },
-      { label: "Execution End Time", value: currentTime },
-    ],
   },
 });
